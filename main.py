@@ -1,44 +1,47 @@
+from window import Main_Window
 
-from tkinter import *
-from tkinter import ttk, filedialog
 from tkinter.messagebox import showinfo
+from PIL import ImageTk,Image
 
 
-def motion(event):
-    x, y = event.x, event.y
-    print('{}, {}'.format(x, y))
+
+def display_image(collection , image_number):
+    image_to_display = collection[image_number]
+    print(image_to_display)
+    image = Image.open(image_to_display)  # allows other image formats
+    resized_image = image.resize((720, 480))  # Resizes the image
+    img = ImageTk.PhotoImage(resized_image)
+    return img
 
 
-def upload_images():
-    filetypes = [
-      ("image", ".jpeg"),
-      ("image", ".png"),
-      ("image", ".jpg"),
-   ]
-
-    filenames = filedialog.askopenfilenames(
-        title='Open files',
-        initialdir='/',
-        filetypes=filetypes)
-
-    showinfo(title='Selected Files',message=filenames)
 
 
-window = Tk()
-window.geometry("1080x800")
-window.title("Simple Watermark Software")
-window.bind('<Motion>', motion)
 
-frm_controls_up = ttk.Frame(window, padding=10)
-frm_controls_up.grid()
-ttk.Label(frm_controls_up, text="upload your photo(s)").grid(column=0, row=0)
-ttk.Button(frm_controls_up, text="Upload", command=upload_images).grid(row=0, column=1)
-ttk.Button(frm_controls_up, text="Download").grid(row=0, column=2)
-
-ttk.Button(frm_controls_up, text="Prev").grid(row=3, column=4)
-ttk.Button(frm_controls_up, text="Next").grid(row=3, column=5)
+# window.bind('<Motion>', motion)
 
 
-frm_image = ttk.Frame(window, padding=10)
 
-window.mainloop()
+#Upper Buttons
+
+#
+#
+#
+#
+# #images tuples
+# image_number = 0
+# collection=('test_img/1.jpg',"test_img/2.gif","test_img/3.jpg","test_img/4.jpg")
+# collection_size = len(collection)
+#
+#
+# #mid Frame(Image Canvas)
+
+#
+#
+# #Initial image
+# image_dis = display_image(collection,image_number)
+# image_to_user = canvas.create_image(300, 300, image=image_dis)
+
+
+
+
+main_window = Main_Window()
