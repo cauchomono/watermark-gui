@@ -1,22 +1,29 @@
 from tkinter import *
-from PIL import ImageTk, Image, ImageGrab
+from tkinter.filedialog import asksaveasfilename
+
+from PIL import ImageTk, Image,ImageDraw, ImageFont
 from tkinter.messagebox import showinfo
 from tkinter import filedialog
+
+
 
 class Photo_controller():
 
     def __init__(self,):
         self.photo_id = 0
-        self.collection = ('test_img/1.jpg', "test_img/2.gif", "test_img/3.jpg", "test_img/4.jpg")
+        self.collection = ('test_img/principal.jpg','test_img/principal.jpg')
+
+
+
 
 
     def prepared_image(self):
             image_to_display = self.collection[self.photo_id]
             print(image_to_display)
-            image = Image.open(image_to_display)  # allows other image formats
-            resized_image = image.resize((720, 480))  # Resizes the image
-            img = ImageTk.PhotoImage(resized_image)
-            return img
+            self.image = Image.open(image_to_display)  # allows other image formats
+            resized_image = self.image.resize((720, 480))  # Resizes the image
+            self.img = ImageTk.PhotoImage(resized_image)
+            return self.img
 
 
 
@@ -36,3 +43,23 @@ class Photo_controller():
             showinfo(title='Selected Files', message="No selected any file")
         else:
             showinfo(title='Selected Files', message=filenames)
+            if len(filenames) == 1:
+                self.collection = (filenames[0],filenames[0])
+            else:
+                self.collection = filenames
+            return self.prepared_image()
+
+
+
+    def download_images(self):
+
+        file = asksaveasfilename(defaultextension=f".jpg", filetypes=[("All Files", "*.*"), ("PNG file", "*.png"), ("jpg file", "*.jpg")])
+        if file:
+            self.image.save(file)
+
+
+    def motion (self,event):
+        self.x,self.y = event.x, event.y
+
+
+
